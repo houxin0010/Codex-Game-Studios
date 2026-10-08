@@ -25,7 +25,7 @@ Last verified: 2026-02-12 | Engine: Godot 4.6
 
 ### AnimationPlayer (unchanged API, new base class)
 ```gdscript
-@onready var anim_player: AnimationPlayer = %AnimationPlayer
+Read `onready var anim_player: AnimationPlayer = %AnimationPlayer` explicitly; Codex does not expand @path imports.
 
 func play_attack() -> void:
     anim_player.play(&"attack")
@@ -63,7 +63,7 @@ func play_attack() -> void:
 ```gdscript
 # AnimationTree now extends AnimationMixer (not Node directly)
 # Use AnimationMixer properties:
-@onready var anim_tree: AnimationTree = %AnimationTree
+Read `onready var anim_tree: AnimationTree = %AnimationTree` explicitly; Codex does not expand @path imports.
 
 func _ready() -> void:
     anim_tree.active = true  # NOT playback_active (deprecated 4.3)

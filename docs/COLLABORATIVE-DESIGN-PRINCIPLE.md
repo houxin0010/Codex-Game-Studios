@@ -42,7 +42,7 @@ Users:
 ## 🔄 Collaborative Workflow Pattern
 
 > **At `rigor: minimal` (the default), the design record is the one-page
-> `design/game-brief.md`, not a set of GDDs.** `/brainstorm` writes it, and the
+> `design/game-brief.md`, not a set of GDDs.** `$brainstorm` writes it, and the
 > same question → options → decision → draft → approval protocol applies to it.
 > The GDD examples below show the `standard` and `full` tiers.
 
@@ -139,7 +139,7 @@ Every agent interaction should follow this pattern:
 11. AGENT WRITES FILE
     Agent: [Uses Write tool]
            "Created design/gdd/crafting-system.md. Would you like me to run
-            /design-review to validate it against the standard?"
+            $design-review to validate it against the standard?"
 ```
 
 ---
@@ -220,15 +220,15 @@ Agent: [Writes code, runs through gameplay-code rule checks, fixes issues]
 
 ### 🎯 Brainstorming Tasks
 
-**Example:** `/brainstorm roguelike`
+**Example:** `$brainstorm roguelike`
 
 ```
 ❌ WRONG:
-User: "/brainstorm roguelike"
+User: "$brainstorm roguelike"
 Skill: [Generates 1 concept and writes it to design/concept.md]
 
 ✅ RIGHT:
-User: "/brainstorm roguelike"
+User: "$brainstorm roguelike"
 Skill: "I'll help you brainstorm roguelike concepts using professional
        ideation frameworks. First:
 
@@ -334,9 +334,9 @@ Skill: "Writing design/concept.md..."
 
 ---
 
-## 🎛️ Structured Decision UI (AskUserQuestion)
+## 🎛️ Structured Decision UI (user clarification)
 
-Use the `AskUserQuestion` tool to present decisions as a **selectable UI** instead
+Use the `user clarification` tool to present decisions as a **selectable UI** instead
 of plain markdown text. This gives the user a clean interface to pick from options
 (or type "Other" for a custom answer).
 
@@ -349,10 +349,10 @@ pattern:
    detailed pros/cons, theory references, example games, pillar alignment. This is
    where the reasoning lives.
 
-2. **Capture the decision** — Call `AskUserQuestion` with concise option labels
+2. **Capture the decision** — Call `user clarification` with concise option labels
    and short descriptions. The user picks from the UI or types a custom answer.
 
-### When to Use AskUserQuestion
+### When to Use user clarification
 
 ✅ **Use it for:**
 - Every decision point where you'd present 2-4 options
@@ -365,11 +365,11 @@ pattern:
 ❌ **Don't use it for:**
 - Open-ended discovery questions ("What excites you about roguelikes?")
 - Single yes/no confirmations ("May I write to file?")
-- When running as a subagent (spawned through the `Agent` tool), which never gets
+- When running as a subagent (spawned through the Codex subagent tools), which never gets
   the tool: end with the options as a short labeled list and let the caller ask
 
 A question that comes back skipped, dismissed or empty is not an answer. Act on
-nothing; ask again in plain text and wait (`.claude/docs/automation-modes.md`).
+nothing; ask again in plain text and wait (`.codex/docs/automation-modes.md`).
 
 ### Format Guidelines
 
@@ -384,7 +384,7 @@ nothing; ask again in plain text and wait (`.claude/docs/automation-modes.md`).
 After introducing the topic in conversation, batch constrained questions:
 
 ```
-AskUserQuestion:
+user clarification:
   questions:
     - question: "Should crafting recipes be discovered or learned?"
       header: "Discovery"
@@ -411,7 +411,7 @@ AskUserQuestion:
 After writing the full pros/cons analysis in conversation text:
 
 ```
-AskUserQuestion:
+user clarification:
   questions:
     - question: "Which crafting approach fits your vision?"
       header: "Approach"
@@ -429,7 +429,7 @@ AskUserQuestion:
 After presenting the full strategic analysis with pillar alignment:
 
 ```
-AskUserQuestion:
+user clarification:
   questions:
     - question: "How should we handle crafting scope for Alpha?"
       header: "Scope"
@@ -445,12 +445,12 @@ AskUserQuestion:
 ### Team Skill Orchestration
 
 In team skills, subagents return their analysis as text. The **orchestrator**
-(main session) calls `AskUserQuestion` at each decision point between phases:
+(main session) calls `user clarification` at each decision point between phases:
 
 ```
 [game-designer returns 3 combat approaches with analysis]
 
-Orchestrator uses AskUserQuestion:
+Orchestrator uses user clarification:
   question: "Which combat approach should we develop?"
   options: [concise summaries of the 3 approaches]
 
@@ -567,10 +567,10 @@ Agents should be:
 
 ## 🎯 Applying This to Team Skills
 
-Team skills (like `/team-combat`) orchestrate multiple agents, but still collaborative:
+Team skills (like `$team-combat`) orchestrate multiple agents, but still collaborative:
 
 ```
-User: "/team-combat 'grappling hook ability'"
+User: "$team-combat 'grappling hook ability'"
 
 Skill (Coordinator):
 "I'll coordinate the combat team to design and implement the grappling hook.
@@ -611,7 +611,7 @@ Skill (Coordinator):
 "All 4 subsystems implemented. Would you like me to:
  A) Have gameplay-programmer integrate them now
  B) Let you test each independently first
- C) Run /code-review before integration?"
+ C) Run $code-review before integration?"
 ```
 
 The orchestration is automated, but **decision points stay with the user**.

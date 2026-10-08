@@ -1,0 +1,18 @@
+# Merge these keys into the studio root project.yaml for a native game.
+schema_version: 1
+engine:
+  name: WeChat
+  language: JavaScript
+specialists:
+  primary: wechat-minigame-specialist
+platforms:
+  wechat:
+    enabled: true
+    runtime: native
+    game_root: examples/wechat-minigame
+    orientation: portrait
+    # Set base_library after checking the installed DevTools/target devices.
+commands:
+  test: node --test tests/wechat/*.test.js
+modes:
+  rigor: minimal

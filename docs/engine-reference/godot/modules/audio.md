@@ -17,8 +17,8 @@ remains stable. Key updates are workflow improvements:
 
 ### Playing Audio
 ```gdscript
-@onready var sfx_player: AudioStreamPlayer = %SFXPlayer
-@onready var music_player: AudioStreamPlayer = %MusicPlayer
+Read `onready var sfx_player: AudioStreamPlayer = %SFXPlayer` explicitly; Codex does not expand @path imports.
+Read `onready var music_player: AudioStreamPlayer = %MusicPlayer` explicitly; Codex does not expand @path imports.
 
 func play_sfx(stream: AudioStream) -> void:
     sfx_player.stream = stream
@@ -35,7 +35,7 @@ func play_music(stream: AudioStream, fade_time: float = 1.0) -> void:
 
 ### 3D Spatial Audio
 ```gdscript
-@onready var audio_3d: AudioStreamPlayer3D = %AudioPlayer3D
+Read `onready var audio_3d: AudioStreamPlayer3D = %AudioPlayer3D` explicitly; Codex does not expand @path imports.
 
 func _ready() -> void:
     audio_3d.max_distance = 50.0

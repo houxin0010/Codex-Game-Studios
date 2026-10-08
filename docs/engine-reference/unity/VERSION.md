@@ -3,7 +3,7 @@
 | Field | Value |
 |-------|-------|
 | **Engine Version** | Unity 6.3 LTS |
-| **Installed at pin time** | NOT DETERMINED — `/setup-engine` §3 probes the installed editor and records the result here. |
+| **Installed at pin time** | NOT DETERMINED — `$setup-engine` §3 probes the installed editor and records the result here. |
 | **Release Date** | December 2025 |
 | **Project Pinned** | 2026-02-13 |
 | **Last Docs Verified** | 2026-02-13 |
@@ -19,7 +19,7 @@ before suggesting Unity API calls.
 ## Installed-Version Gap Warning
 
 The warning above is one-directional — it covers the **model** knowing less than
-this pin. The reverse gap is real and `/setup-engine` §3 creates it deliberately
+this pin. The reverse gap is real and `$setup-engine` §3 creates it deliberately
 ("pin the newer one and upgrade later"): this reference can sit **ahead of the
 installed editor**, and an agent citing it correctly then emits APIs that do not
 compile locally. **Check `Installed at pin time` above before trusting a
@@ -48,7 +48,7 @@ version-qualified claim** — `NOT DETERMINED` means the gap is unknown, not abs
 > **The dates are NOT corrected here, deliberately.** Real Unity release dates
 > cannot be sourced from this repo — this directory *is* the source — and writing
 > them from training data is the failure this whole directory exists to prevent
-> (`/security-audit` makes the same call). Re-verify against Unity's
+> (`$security-audit` makes the same call). Re-verify against Unity's
 > published release notes and update the row dates, the `Release Date` field, and
 > `Last Docs Verified` together. Until then, treat every version-qualified claim in
 > `docs/engine-reference/unity/` as **unconfirmed**, and prefer APIs that are not

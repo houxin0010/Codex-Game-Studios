@@ -41,8 +41,8 @@ Project Settings → Physics → 3D → Physics Engine:
 # CharacterBody3D movement — API unchanged across engines
 extends CharacterBody3D
 
-@export var speed: float = 5.0
-@export var jump_velocity: float = 4.5
+Read `export var speed: float = 5.0` explicitly; Codex does not expand @path imports.
+Read `export var jump_velocity: float = 4.5` explicitly; Codex does not expand @path imports.
 
 func _physics_process(delta: float) -> void:
     if not is_on_floor():

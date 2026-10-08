@@ -6,10 +6,10 @@ This guide covers converting an **existing project's config files** to
 files* changed between releases and whether they're safe to overwrite. This
 guide covers your *project's own data*: the values you configured in
 `production/stage.txt`, `production/review-mode.txt`, and
-`.claude/docs/technical-preferences.md`.
+`.codex/docs/technical-preferences.md`.
 
 If you're setting up a **brand-new** project on v1.1, you don't need this —
-`/start` writes `project.yaml` directly and none of the legacy files apply.
+`$start` writes `project.yaml` directly and none of the legacy files apply.
 
 ---
 
@@ -20,11 +20,11 @@ exist at your repo root, and at least one of these does:
 
 - `production/stage.txt`
 - `production/review-mode.txt`
-- `.claude/docs/technical-preferences.md` with real values (a copy still
+- `.codex/docs/technical-preferences.md` with real values (a copy still
   full of `[TO BE CONFIGURED]` placeholders is the untouched template
   default, not migratable data, and doesn't count)
 
-Run `/adopt` and it will detect this automatically (Phase 2g) and walk you
+Run `$adopt` and it will detect this automatically (Phase 2g) and walk you
 through the steps below. You can also run the converter directly.
 
 ---
@@ -62,16 +62,16 @@ converter never deletes this file for that reason — see "Finalizing," below.
 
 The conversion is a tested script, not something the AI hand-edits — the
 v1.1 plan rated data loss during migration as its highest-severity risk, and
-prose migration can't be unit-tested the way a script can. `/adopt` drives
+prose migration can't be unit-tested the way a script can. `$adopt` drives
 it for you, or you can run it yourself:
 
 ```bash
 # 1. Preview — writes nothing, just reports what it would do
-bash .claude/scripts/migrate-v1-config.sh --dry-run
+bash .codex/scripts/migrate-v1-config.sh --dry-run
 
 # 2. Migrate — writes project.yaml + production/migration-report.md
 #    Every legacy file is left in place, untouched.
-bash .claude/scripts/migrate-v1-config.sh
+bash .codex/scripts/migrate-v1-config.sh
 
 # 3. Read the report before finalizing
 cat production/migration-report.md
@@ -79,7 +79,7 @@ cat production/migration-report.md
 # 4. Finalize — deletes legacy files, ONLY after re-verifying each one's
 #    value made it into project.yaml. Refuses (exit 4) and deletes nothing
 #    on any mismatch.
-bash .claude/scripts/migrate-v1-config.sh --finalize
+bash .codex/scripts/migrate-v1-config.sh --finalize
 ```
 
 Step 4 is optional and separate on purpose. Skipping it is completely fine —
@@ -116,7 +116,7 @@ The report has five sections:
 | Custom sections in a forked `technical-preferences.md` | Logged to the migration report as "not migrated — integrate manually." Nothing is silently dropped. |
 
 If you hit the split-brain case (both present), that usually means you
-either ran `/start` on a project that also had old legacy files lying
+either ran `$start` on a project that also had old legacy files lying
 around, or partially migrated by hand. Pick the one with your real values,
 remove or back up the other, then re-run `--dry-run`.
 
@@ -126,10 +126,10 @@ remove or back up the other, then re-run `--dry-run`.
 
 1. Spot-check `project.yaml` against your old `technical-preferences.md` —
    engine, naming, and performance values in particular.
-2. Run `/settings` to see the effective config the way skills will read it.
+2. Run `$settings` to see the effective config the way skills will read it.
 3. Everything else in the framework works identically whether or not you've
    run `--finalize` — there's no rush.
 
 For the new settings that didn't exist in v1.0 (`modes.rigor` above all),
 see the [Configuration section of the README](../README.md#configuration)
-and the full spec in `.claude/docs/effects-map.md`.
+and the full spec in `.codex/docs/effects-map.md`.

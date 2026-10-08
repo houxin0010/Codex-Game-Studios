@@ -16,7 +16,7 @@ Last verified: 2026-02-12 | Engine: Godot 4.6
 
 ### NavigationAgent3D (Preferred for Most Cases)
 ```gdscript
-@onready var nav_agent: NavigationAgent3D = %NavigationAgent3D
+Read `onready var nav_agent: NavigationAgent3D = %NavigationAgent3D` explicitly; Codex does not expand @path imports.
 
 func _ready() -> void:
     nav_agent.path_desired_distance = 0.5
@@ -40,7 +40,7 @@ func _on_velocity_computed(safe_velocity: Vector3) -> void:
 
 ### NavigationAgent2D
 ```gdscript
-@onready var nav_agent: NavigationAgent2D = %NavigationAgent2D
+Read `onready var nav_agent: NavigationAgent2D = %NavigationAgent2D` explicitly; Codex does not expand @path imports.
 
 func navigate_to(target: Vector2) -> void:
     nav_agent.target_position = target

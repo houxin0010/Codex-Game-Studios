@@ -33,14 +33,14 @@ func join_game(address: String, port: int = 9999) -> void:
 ### RPCs
 ```gdscript
 # Server-authoritative pattern
-@rpc("any_peer", "call_local", "reliable")
+Read `rpc("any_peer", "call_local", "reliable")` explicitly; Codex does not expand @path imports.
 func request_action(action_data: Dictionary) -> void:
     if not multiplayer.is_server():
         return
     # Validate on server, then broadcast
     _execute_action.rpc(action_data)
 
-@rpc("authority", "call_local", "reliable")
+Read `rpc("authority", "call_local", "reliable")` explicitly; Codex does not expand @path imports.
 func _execute_action(action_data: Dictionary) -> void:
     # All peers execute the validated action
     pass

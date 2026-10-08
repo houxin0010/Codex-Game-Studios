@@ -1,0 +1,8 @@
+{
+  "description": "Codex Game Studios native Canvas starter",
+  "compileType": "game",
+  "appid": "touristappid",
+  "projectname": "codex-wechat-starter",
+  "setting": { "es6": true, "minified": true },
+  "packOptions": { "ignore": [{ "type": "file", "value": "README.md" }] }
+}

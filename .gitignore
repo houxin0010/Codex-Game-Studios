@@ -10,8 +10,8 @@ Thumbs.db
 Desktop.ini
 
 # === Claude Code Local ===
-.claude/settings.local.json
-CLAUDE.local.md
+.codex/local.config.toml
+AGENTS.override.md
 project.local.yaml
 production/session-logs/
 # Ephemeral per-session checkpoint. directory-structure.md documents this as
@@ -19,11 +19,10 @@ production/session-logs/
 production/session-state/
 .scratch/
 # Per-agent working memory written at runtime — not release material
-.claude/agent-memory/
+.codex/agent-memory/
 
 
 # === Local sandboxes and scratch work ===
-examples/
 sandbox/
 sandboxes/
 tests/sandboxes/
@@ -171,3 +170,8 @@ $RECYCLE.BIN/
 # the project root. Anchored so a reports/ folder elsewhere stays tracked.
 /reports/
 /test-results/
+
+# WeChat local/export artifacts
+project.private.config.json
+minigame_npm/
+.env.*
