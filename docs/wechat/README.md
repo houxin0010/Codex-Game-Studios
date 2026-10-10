@@ -35,6 +35,11 @@ wx.onShow and reports storage failures without stopping gameplay. Native SDK
 requestAnimationFrame is supplied by game.js; no window/document shim is needed.
 示例固定竖屏；旋转、音频、拖拽取消及引擎生命周期需按实际游戏补充验证。
 
+The starter includes an opt-in, dependency-free rewarded-video adapter with a
+blank ad-unit configuration and Node wx Mock tests. See
+[rewarded-video integration](rewarded-video.md) for its contract and remaining
+platform checks. 示例默认不请求广告；Mock 通过不代表真实商业广告接入成功。
+
 ## Platform contracts / 平台约束
 
 - **Runtime / 运行时**: game.js/game.json, wx APIs, native touch events and no DOM.

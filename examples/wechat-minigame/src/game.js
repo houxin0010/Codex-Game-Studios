@@ -1,5 +1,12 @@
 // Native WeChat mini-game starter; no DOM or browser adapter required.
-function createGame(wx, frames, warn = message => console.warn(message)) {
+const { createRewardedVideo } = require('./rewarded-video');
+const defaultConfig = require('./config');
+
+/** Create the starter; optional config.rewardedVideo enables player-triggered rewards. */
+function createGame(wx, frames, warn = message => console.warn(message), config = defaultConfig) {
+  const adConfig = config.rewardedVideo || {};
+  const rewardPoints = adConfig.rewardPoints;
+  const video = createRewardedVideo(wx, adConfig);
   const info = wx.getWindowInfo ? wx.getWindowInfo() : wx.getSystemInfoSync();
   const width = info.windowWidth;
   const height = info.windowHeight;
@@ -56,17 +63,38 @@ function createGame(wx, frames, warn = message => console.warn(message)) {
     const { clientX, clientY } = event.touches[0];
     if (!Number.isFinite(clientX) || !Number.isFinite(clientY)) return;
     if (Math.hypot(clientX - targetX, clientY - centerY) > radius) return;
-    score += 1;
+    addScore(1);
+  }
+  function addScore(points) {
+    score += points;
     try { wx.setStorageSync('studio-demo-score', score); }
     catch (error) { warn('Score could not be saved: ' + error.message); }
     draw();
   }
+  /** Call from an explicit player action; completed video adds configured points once. */
+  async function watchRewardedVideo() {
+    if (destroyed) return { status: 'destroyed', rewarded: false };
+    if (!running) return { status: 'paused', rewarded: false };
+    if (!Number.isSafeInteger(rewardPoints) || rewardPoints <= 0 ||
+        !Number.isSafeInteger(score + rewardPoints)) {
+      return { status: 'invalid-reward', rewarded: false };
+    }
+    const result = await video.show();
+    if (destroyed) return { status: 'destroyed', rewarded: false };
+    if (result.rewarded) {
+      if (!Number.isSafeInteger(score + rewardPoints)) {
+        return { status: 'invalid-reward', rewarded: false };
+      }
+      addScore(rewardPoints);
+    }
+    return result;
+  }
   function destroy() {
     if (destroyed) return;
-    destroyed = true; pause();
+    destroyed = true; pause(); video.destroy();
     wx.offShow(start); wx.offHide(pause); wx.offTouchStart(touch);
   }
   wx.onShow(start); wx.onHide(pause); wx.onTouchStart(touch);
-  return { start, pause, destroy };
+  return { start, pause, destroy, watchRewardedVideo };
 }
 module.exports = { createGame };

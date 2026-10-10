@@ -73,7 +73,8 @@ $dev-story production/epics/<epic>/story-001.md
 
 示例采用原生 `wx.createCanvas`、触控事件、安全区与 DPR 缩放，固定竖屏。
 它是小游戏，不是小程序、HTML 页面或浏览器 DOM 适配层；未包含联网、登录、
-广告、支付或后端服务。
+支付或后端服务。可选激励视频适配默认关闭，目前仅通过 wx Mock 验证，
+详见[广告接入说明](docs/wechat/rewarded-video.md)。
 
 **Cocos Creator / LayaAir / Unity** 需使用厂商或腾讯的小游戏导出适配器。
 工作室负责引导版本核验、开发及验证，不提供引擎转换器。普通 Web 导出不能等同于

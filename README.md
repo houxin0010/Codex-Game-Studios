@@ -78,7 +78,9 @@ For a quick native demo:
 
 The starter uses native `wx.createCanvas`, touch events, safe-area layout and DPR.
 It is a portrait Canvas game, not a mini program, HTML page or browser DOM shim.
-It has no network, login, ads, payment or backend service.
+It has no business network, login, payment or backend service. Its optional
+rewarded-video adapter is disabled by default and validated only with wx mocks;
+see [the ad integration guide](docs/wechat/rewarded-video.md).
 
 **Cocos Creator / LayaAir / Unity** use their vendor/Tencent export adapters.
 The studio guides version pinning and validation; it does not implement an engine
